@@ -17,7 +17,8 @@ def get_arguments():
 
     parser.add_argument('output_file', help='Output .json file', type=str)
 
-    parser.add_argument('-start_page', help='Starting page identifier', type=int, default=1)
+    parser.add_argument(
+        '-start_page', help='Starting page identifier', type=int, default=1)
 
     return parser.parse_args()
 
@@ -33,16 +34,16 @@ if __name__ == '__main__':
 
     # Defines the payload, i.e., filters to be used on the search
     payload = {
-        "country_codes[]": "br",
+        "country_codes[]": "fr",
         # "food_ids[]": 20,
         # "grape_ids[]": 3,
         # "grape_filter": "varietal",
-        "min_rating": 3.7,
+        # "min_rating": 3.7,
         # "order_by": "ratings_average",
         # "order": "desc",
         # "price_range_min": 25,
         # "price_range_max": 100,
-        # "region_ids[]": 383,
+        "region_ids[]": 650,
         # "wine_style_ids[]": 98,
         # "wine_type_ids[]": 1,
         # "wine_type_ids[]": 2,
@@ -103,6 +104,6 @@ if __name__ == '__main__':
             with open(f'{i}_{output_file}', 'w') as f:
                 # Dumps the data
                 json.dump(data, f)
-        
+
         # Closes the file
         f.close()

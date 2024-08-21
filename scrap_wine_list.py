@@ -16,7 +16,8 @@ def get_arguments():
 
     parser.add_argument('output_file', help='Output .txt file', type=str)
 
-    parser.add_argument('-start_page', help='Starting page identifier', type=int, default=1)
+    parser.add_argument(
+        '-start_page', help='Starting page identifier', type=int, default=1)
 
     return parser.parse_args()
 
@@ -32,16 +33,16 @@ if __name__ == '__main__':
 
     # Defines the payload, i.e., filters to be used on the search
     payload = {
-        "country_codes[]": "br",
+        "country_codes[]": "fr",
         # "food_ids[]": 20,
-        # "grape_ids[]": 3,
+        # "grape_ids[]": 2,
         # "grape_filter": "varietal",
-        "min_rating": 3.7,
+        # "min_rating": 3.7,
         # "order_by": "ratings_average",
         # "order": "desc",
         # "price_range_min": 25,
         # "price_range_max": 100,
-        # "region_ids[]": 383,
+        "region_ids[]": 650,
         # "wine_style_ids[]": 98,
         # "wine_type_ids[]": 1,
         # "wine_type_ids[]": 2,
@@ -54,6 +55,7 @@ if __name__ == '__main__':
     # Performs an initial request to get the number of records (wines)
     res = r.get('explore/explore?', params=payload)
     n_matches = res.json()['explore_vintage']['records_matched']
+    matches = res.json()['explore_vintage']['matches']
 
     print(f'Number of matches: {n_matches}')
 
@@ -66,7 +68,6 @@ if __name__ == '__main__':
 
         # Performs the request and scraps the URLs
         res = r.get('explore/explore', params=payload)
-        matches = res.json()['explore_vintage']['matches']
 
         # Opens the output file with append
         with open(output_file, 'a') as f:
